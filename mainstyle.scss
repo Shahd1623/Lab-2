@@ -1,0 +1,186 @@
+@import 'variables';
+
+@mixin layout ($no-cols, $break-point, $range) {
+    @media (min-width:$range) {
+        @if ($break-point=="") {
+            @for $i from 1 through $no-cols {
+                .col-#{$i} {
+                    width: ($i/$no-cols)*100%;
+                }
+            }
+        }
+
+        @else {
+            @for $i from 1 through $no-cols {
+                .col-#{$break-point}-#{$i} {
+                    width: ($i/$no-cols)*100%;
+                }
+            }
+        }
+    }
+
+}
+
+@include layout(12, "", 0px);
+@include layout(12, "sm", 576px);
+@include layout(12, "md", 768px);
+@include layout(12, "lg", 992px);
+
+@mixin row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 0;
+
+    @media (min-width: 992px) {
+        gap: 16px 0; // gap only on large screens
+    }
+}
+
+.row {
+    @include row()
+}
+
+
+@for $i from 1 through 20 {
+    .m-#{$i} {
+        margin: #{$i}px;
+    }
+
+    .mt-#{$i} {
+        margin-top: #{$i}px;
+    }
+
+    .mb-#{$i} {
+        margin-bottom: #{$i}px;
+    }
+
+    .ms-#{$i} {
+        margin-left: #{$i}px;
+    }
+
+    .me-#{$i} {
+        margin-right: #{$i}px;
+    }
+
+    .mx-#{$i} {
+        margin-left: #{$i}px;
+        margin-right: #{$i}px;
+    }
+
+    .my-#{$i} {
+        margin-top: #{$i}px;
+        margin-bottom: #{$i}px;
+    }
+}
+
+@for $i from 1 through 20 {
+    .p-#{$i} {
+        padding: #{$i}px;
+    }
+
+    .pt-#{$i} {
+        padding: #{$i}px;
+    }
+
+    .pb-#{$i} {
+        padding-bottom: #{$i}px;
+    }
+
+    .ps-#{$i} {
+        padding-left: #{$i}px;
+    }
+
+    .pe-#{$i} {
+        padding-right: #{$i}px;
+    }
+
+    .px-#{$i} {
+        padding-left: #{$i}px;
+        padding-right: #{$i}px;
+    }
+
+    .py-#{$i} {
+        padding: #{$i}px;
+        padding-bottom: #{$i}px;
+    }
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px;
+
+    label {
+        margin-bottom: 6px;
+    }
+
+    input {
+        border: none;
+        outline: none;
+        font-size: 16px;
+        width: 100%;
+    }
+}
+
+hr {
+    width: 100%;
+    border: none;
+    border-top: 2px solid #e8e8f0;
+    margin: 0;
+}
+
+@each $value in $displays {
+    .d-#{$value} {
+        display: $value;
+    }
+}
+
+$breakpoints: (
+    "sm": 576px,
+    "md": 768px,
+    "lg": 992px,
+);
+
+@each $bp, $range in $breakpoints {
+    @media (min-width: $range) {
+        @each $value in $displays {
+            .d-#{$bp}-#{$value} {
+                display: $value;
+            }
+        }
+    }
+}
+
+.btn {
+    padding: 16px 32px;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background-color: $background;
+    color: $font-color;
+    font-size: 16px;
+}
+
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.item-center {
+    align-items: center;
+}
+
+// responsive
+img {
+    display: none; // hidden by default (mobile)
+
+    @media (min-width: 992px) {
+        display: block; // show on large screens
+    }
+}
+
+h3 {
+    color: $background
+}
